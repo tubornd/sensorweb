@@ -1,2 +1,2 @@
 # sensorweb
-Web monitoring for sensors and cameras of iot
+Web monitoring app for sensors and cameras of Raspberry Pi
