@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+{% load django_bootstrap5 %}
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Cameras</title>
+    {% bootstrap_css %}
+    <style>
+        body { text-align: center; background-color: #f8f9fa; }
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 15px;
+            padding: 20px;
+        }
+        .camera-box {
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 10px;
+            background: #ffffff;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            width: 16em;
+            height: 14em;
+        }
+        .camera-box h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #343a40;
+        }
+
+        /* Fullscreen 상태 */
+        .fullscreen-box {
+            display: flex; /* 초기에 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .fullscreen-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        img { width: 100%; height: auto; border-radius: 8px; }
+        
+        #toggle-btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        #toggle-btn.off { background-color: #6c757d; }
+
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand bg-light" href="/">
+                <img src="{% static 'images/logo.png' %}" height="40px" alt="Logo">
+            </a>
+            <a href="/webcam" class="btn btn-success">AI WebCam</a>
+            <a href="/sensor" class="btn btn-primary">Sensor Data</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="my-4 text-primary">Multi Camera Stream</h1>
+        <button id="toggle-btn" onclick="toggleDetection()">🔄 객체 감지 OFF</button>
+        <div id="grid" class="grid-container"></div>
+    </div>
+
+    {% bootstrap_javascript %}
+
+    <!-- <script src="/static/js/picam.js"></script> -->
+    <script>
+        let lastFrames = {};
+        let isFullscreen = false;
+        let selectedDevice = null;
+        let detectionEnabled = false;
+
+        async function fetchFrames() {
+            try {
+                const response = await fetch("{% url 'picam_data' %}", { cache: "no-store" });
+                if (!response.ok) throw new Error("Network response was not ok");
+                const data = await response.json();
+                return data.frames;
+            } catch (error) {
+                console.error("Error fetching frames:", error);
+                return {};
+            }
+        }
+
+        async function renderCameras() {
+            const frames = await fetchFrames();
+            const grid = document.getElementById('grid');
+
+            for (const [deviceId, image] of Object.entries(frames)) {
+
+                if (selectedDevice == deviceId) {
+
+                    let camBox = document.getElementById(`fullscreen-${deviceId}`);
+                    let imgElement = document.getElementById(`fullscreen-img-${deviceId}`);
+
+                    // 기존에 없으면 새로 생성
+                    if (!camBox) {
+                        camBox = document.createElement("div");
+                        camBox.className = "fullscreen-box";
+                        camBox.id = `fullscreen-${deviceId}`;
+                        camBox.innerHTML = `
+                            <h3>${deviceId}</h3>
+                            <img id="fullscreen-img-${deviceId}" src="" loading="lazy" style="transition: opacity 0.1s;">
+                        `;
+                        camBox.addEventListener("mousedown", () => toggleFullscreen(deviceId));
+                        grid.appendChild(camBox);
+                        imgElement = document.getElementById(`img-${deviceId}`);
+                    }
+
+                    // 🔄 기존 이미지와 다를 때만 업데이트 → 깜박임 방지
+                    if (lastFrames[deviceId] !== image) {
+                        lastFrames[deviceId] = image;
+                        let newImg = new Image();
+                        newImg.src = `data:image/jpeg;base64,${image}`;
+
+                        newImg.onload = () => {
+                            imgElement.src = newImg.src;
+                        };
+                    }
+
+                } else if (!isFullscreen) {
+
+                    let camBox = document.getElementById(`cam-${deviceId}`);
+                    let imgElement = document.getElementById(`img-${deviceId}`);
+
+                    // 기존에 없으면 새로 생성
+                    if (!camBox) {
+                        camBox = document.createElement("div");
+                        camBox.className = "camera-box";
+                        camBox.id = `cam-${deviceId}`;
+                        camBox.innerHTML = `
+                            <h3>${deviceId}</h3>
+                            <img id="img-${deviceId}" src="" loading="lazy" style="transition: opacity 0.1s;">
+                        `;
+                        camBox.addEventListener("mousedown", () => toggleFullscreen(deviceId));
+                        grid.appendChild(camBox);
+                        imgElement = document.getElementById(`img-${deviceId}`);
+                    }
+
+                    // 🔄 기존 이미지와 다를 때만 업데이트 → 깜박임 방지
+                    if (lastFrames[deviceId] !== image) {
+                        lastFrames[deviceId] = image;
+                        let newImg = new Image();
+                        newImg.src = `data:image/jpeg;base64,${image}`;
+
+                        newImg.onload = () => {
+                            imgElement.src = newImg.src;
+                        };
+                    }
+                }             
+            }
+        }
+
+        // ✅ Fullscreen 모드 토글
+        function toggleFullscreen(deviceId) {
+            const grid = document.getElementById('grid');
+
+            if (!isFullscreen) {
+                // Fullscreen 모드 활성화
+                isFullscreen = true;
+                selectedDevice = deviceId;
+                
+            } else {
+                // Fullscreen 모드 종료 (원래 Grid 복귀)
+                exitFullscreen();
+            }
+        }
+
+        // ✅ Fullscreen 모드 해제 (원래 Grid 복귀)
+        function exitFullscreen() {
+            isFullscreen = false;
+            selectedDevice = null;
+            document.getElementById('grid').innerHTML = "";
+            renderCameras();
+        }
+
+        // ✅ Detection 모드 토글
+        async function toggleDetection() {
+            try {
+                const response = await fetch("{% url 'toggle_detection' %}", { method: "POST" });
+                if (!response.ok) throw new Error("Failed to toggle detection");
+                const data = await response.json();
+                detectionEnabled = data.detection_enabled;
+                updateToggleButton();
+            } catch (error) {
+                console.error("Error toggling detection:", error);
+            }
+        }
+
+        function updateToggleButton() {
+            const btn = document.getElementById("toggle-btn");
+            if (detectionEnabled) {
+                btn.innerHTML = "🟢 객체 감지 ON";
+                btn.classList.remove("off");
+            } else {
+                btn.innerHTML = "🔴 객체 감지 OFF";
+                btn.classList.add("off");
+            }
+        }
+        
+        // 🔄 100ms마다 실행
+        setInterval(renderCameras, 100);
+        renderCameras();
+    </script>
+
+</body>
+</html>

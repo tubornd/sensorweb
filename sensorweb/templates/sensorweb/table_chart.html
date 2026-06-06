@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <style>
+       body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 100vw;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .table-container {
+            flex: 3;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            max-height: 30vh;
+            margin-Right: 20px;
+
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            table-layout: fixed;
+        }
+
+        th, td {
+            border: 2px solid #ddd;
+            padding: 2px;
+            word-wrap: break-word;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            position: sticky;
+            top: 0;
+        }
+
+        .chart-container {
+            flex: 7;
+            margin-Right: 20px;
+            height: 70vh;
+            display: flex;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .table-container {
+                max-height: 35vh;
+            }
+
+            .chart-container {
+                 height: 50vh;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+            }
+
+            table {
+                font-size: 10px;
+            }
+
+            th, td {
+                padding: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 테이블 컨테이너 -->
+    <div>
+        <div class="m-auto text-center">
+            <a href="/" class="logo"><img src="/static/images/logo.png" height="40" alt="" /></a>
+            <a href="/picam" class="btn btn-warning">Web CAM</a>
+        </div>
+        <section class="container">
+            <div class="table-container">
+                <table id="sensorTable">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Time</th>
+                            <th>Location</th>
+                            <th>Temp Left</th>
+                            <th>Temp Right</th>
+                            <th>Load Left</th>
+                            <th>Load Right</th>
+                            <th>VOCs</th>
+                            <th>VOCs Temp</th>
+                            <th>VOCs Hum</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        <!-- 차트 컨테이너 -->
+            <div class="chart-container">
+                <canvas id="sensorChart"></canvas>
+            </div>
+        </section>
+    </div>
+    <script>
+        async function fetchSensorData() {
+            const response = await fetch('/sensor', {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            const result = await response.json();
+            return result.data;
+        }
+
+        function formatTime(time) {
+            const date = new Date(time);
+            return date.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+        }
+
+        function updateTable(data) {
+            const tbody = document.querySelector('#sensorTable tbody');
+            tbody.innerHTML = '';
+
+            data.forEach(row => {
+                const { id, ...rowWithoutId } = row;
+                const tr = document.createElement('tr');
+
+                Object.keys(rowWithoutId).forEach(key => {
+                    const td = document.createElement('td');
+                    if (key === 'time') {
+                        td.textContent = formatTime(row[key]);
+                    } else {
+                        td.textContent = row[key];
+                    }
+                    tr.appendChild(td);
+                });
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        const legendVisibility = {
+            'Temp Left': true,
+            'Temp Right': true,
+            'Load Left': true,
+            'Load Right': true,
+            'VOCs': true,
+            'VOCs Temp': true,
+            'VOCs Hum': true,
+        };
+
+        const ctx = document.getElementById('sensorChart').getContext('2d');
+        let chart;
+
+        function initializeChart() {
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 0
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time'
+                            },
+                            reverse: true
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Values'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    },
+                     plugins: {
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'y',
+                                modifierKey: 'mousedown'
+                            },
+                            zoom: {
+                                wheel: {
+                                    enabled: true,
+                                },
+                                pinch: {
+                                  enabled: true
+                                },
+                                mode: 'y',
+                            }
+                         },
+                         legend: {
+                              labels: {
+                                font: {
+                                    size: 10
+                                },
+                                boxWidth: 10,
+                                boxHeight: 10,
+                                padding: 5
+                            },
+                            onClick: function (e, legendItem) {
+                                const index = legendItem.datasetIndex;
+                                const datasetLabel = chart.data.datasets[index].label;
+
+                                legendVisibility[datasetLabel] = !legendVisibility[datasetLabel];
+                                chart.data.datasets[index].hidden = !legendVisibility[datasetLabel];
+                                chart.update();
+                            }
+                         }
+                     }
+                }
+             });
+         }
+
+        function updateChart(data) {
+             if (!chart) {
+                return;
+             }
+            const labels = data.map(row => formatTime(row.time));
+            const tempLeft = data.map(row => row.temp_left);
+            const tempRight = data.map(row => row.temp_right);
+            const loadLeft = data.map(row => row.load_left);
+            const loadRight = data.map(row => row.load_right);
+            const vocs = data.map(row => row.vocs);
+            const vocsTemp = data.map(row => row.vocs_temp);
+            const vocsHum = data.map(row => row.vocs_hum);
+
+            chart.data.labels = labels;
+            chart.data.datasets = [
+                {
+                    label: 'Temp Left',
+                    data: tempLeft,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Temp Left']
+                },
+                {
+                    label: 'Temp Right',
+                    data: tempRight,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Temp Right']
+                },
+                {
+                    label: 'Load Left',
+                    data: loadLeft,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Load Left']
+                },
+                {
+                    label: 'Load Right',
+                    data: loadRight,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Load Right']
+                },
+                {
+                    label: 'VOCs',
+                    data: vocs,
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['VOCs']
+                },
+                {
+                    label: 'VOCs Temp',
+                    data: vocsTemp,
+                    borderColor: 'rgba(255, 205, 86, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['VOCs Temp']
+                },
+                {
+                    label: 'VOCs Hum',
+                    data: vocsHum,
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['VOCs Hum']
+                }
+            ];
+            chart.update();
+        }
+
+        async function refreshData() {
+            const data = await fetchSensorData();
+            updateTable(data);
+            updateChart(data);
+         }
+
+        initializeChart();
+        setInterval(refreshData, 1000);
+        refreshData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+/*font-set*/
+@charset "utf-8";
+/* web-font*/
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+@font-face {
+  font-family: 'SeoulHangangL';
+  font-style: normal;
+  font-weight: normal;
+  src: url(./fonts/SeoulHangangL.eot);
+  src: url(./fonts/SeoulHangangL.eot?#iefix) format('embedded-opentype'),
+       url(./fonts/SeoulHangangL.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'SeoulHangangM';
+  font-style: normal;
+  font-weight: normal;
+  src: url(./fonts/SeoulHangangM.eot);
+  src: url(./fonts/SeoulHangangM.eot?#iefix) format('embedded-opentype'),
+       url(./fonts/SeoulHangangM.ttf) format('truetype');
+}
+
+
+
+
+/*Reset CSS 1.1*/
+* {
+
+	font-family:'sans-serif', 'NanumGothic', '�섎닎怨좊뵓' ;
+	vertical-align: baseline;
+	text-decoration:none;
+	color:#444;
+	box-sizing:border-box; letter-spacing:0px;
+	
+}
+html,body{width:100%;height:100%; padding:0; margin:0;}
+body {font-size:15px; color:#272727; background-color:#ffffff; text-align:left;*word-break:break-all;-ms-word-break:break-all;}
+
+a {color:inherit;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
+button *{position:relative}
+button img{left:-3px;*left:auto}
+button, img, label, input, select  {vertical-align:middle; line-height:normal;}
+button, label{cursor:pointer}
+code, kbd, samp, pre, tt, var, textarea, input, select, isindex, listing, xmp, plaintext {white-space:normal;}
+dt{display:block;}
+hr{display:none;}
+img, video {max-width:100%;}
+legend{*width:0; display:none;}
+ol, ul, dir, menu {list-style: none;}
+table {border-collapse: collapse; border-spacing: 0; width:100%; table-layout:fixed; word-break: break-all;}
+caption {display:none;}
+textarea {overflow: auto; resize: none; white-space:pre}
+.clear:afer {content:""; visibility:hidden; display:block; clear:both; height:0;}
+.hide {font-size:0; line-height:0; overflow:hidden; visibility:hidden; margin-left:-4000em;}
+
+
+/* input, button crossbrowersing */
+	button,
+	html input[type="button"], 
+	input[type="reset"],
+	input[type="submit"] {
+		-webkit-appearance: button; 
+		cursor: pointer; 
+		*overflow: visible;  
+	}
+	button[disabled],
+	input[disabled] {
+		cursor: default;
+	}
+	input[type="checkbox"],
+	input[type="radio"] {
+		box-sizing: border-box; 
+		*height: 15px; 
+		*width: 15px; 
+	}
+	input[type="search"] {
+		-webkit-appearance: textfield; 
+		-moz-box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+		box-sizing: content-box;
+	}
+	input[type="search"]::-webkit-search-cancel-button,
+	input[type="search"]::-webkit-search-decoration {
+		-webkit-appearance: none;
+	}
+
+input, textarea {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: 'Noto Sans KR','�뗭�',Dotum,'援대┝',Gulim,Tahoma,Verdana,AppleGothic,sans-serif;
+    font-size: 1em;
+    color: #333;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+.fs26px {font-size:26px;font-weight:700;color:#000;}
+.fs40px {font-size:40px;font-weight:700;color:#000;}
+.fs21px {font-size:21px;font-style: normal;color:#000;}
+.w300h30{width:340px;height:30px;line-height:30px}
+.w300h50{width:340px;height:50px;line-height:50px}
+.txtalignc{text-align:center}
+.txtalignl {text-align:center}
+.pdlt20{padding-left:20px;}
+/* ======================== LAYOUT ======================================================================== */
+#wrap {width: 100%; height: auto !important; min-height: 100%; position: relative;  margin:0 auto;}
+
+

@@ -1,0 +1,456 @@
+
+.button2 {
+    display: inline-block;
+    vertical-align: top;
+    padding: 1px 10px;
+    font-family: inherit;
+    font-size: 13pt;
+    color: #111;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 1);
+    background-color: #ccc;
+    background-clip: padding-box;
+    border: 1px solid;
+    border-color: #202020 #1a1a1a #111;
+    border-radius: 2px;
+    background-image: -webkit-linear-gradient(top, #efefef, #777);
+    background-image: -moz-linear-gradient(top, #efefef, #777);
+    background-image: -o-linear-gradient(top, #efefef, #777);
+    background-image: linear-gradient(to bottom, #efefef, #777);
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.09), 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.09), 0px 1px 1px rgba(0, 0, 0, 0.2);
+  }
+  .button2:hover {
+    background-color: #aaaaaa;
+    background-image: -webkit-linear-gradient(top, #ccc, #555);
+    background-image: -moz-linear-gradient(top, #ccc, #555);
+    background-image: -o-linear-gradient(top, #ccc, #555);
+    background-image: linear-gradient(to bottom, #ccc, #555);
+  }
+  .button2:active, .button2.active {
+    background-color: #b42f32;
+    border-color: #1c1c1c #202020 #222;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+  }
+  
+  .rounded {border-radius:100em!important;}
+  
+  
+  
+  .lightGrey {
+    color: #bbb;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .7);
+    background-color: #303030;
+    border-color: #1c1c1c #202020 #222;
+    background-image: -webkit-linear-gradient(top, #8e8e8e, #434343);
+    background-image: -moz-linear-gradient(top, #8e8e8e, #434343);
+    background-image: -o-linear-gradient(top, #8e8e8e, #434343);
+    background-image: linear-gradient(to bottom, #8e8e8e, #434343);
+  }
+  .lightGrey:hover {
+    background-color: #313131;
+    background-image: -webkit-linear-gradient(top, #7b7b7b, #2a2a2a);
+    background-image: -moz-linear-gradient(top, #7b7b7b, #2a2a2a);
+    background-image: -o-linear-gradient(top, #7b7b7b, #2a2a2a);
+    background-image: linear-gradient(to bottom, #7b7b7b, #2a2a2a);
+  }
+  
+  .darkGrey {
+    color: #bbb;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .7);
+    background-color: #474747;
+    border-color: #1c1c1c #202020 #222;
+    background-image: -webkit-linear-gradient(top, #2a2a2a, #1b1b1b);
+    background-image: -moz-linear-gradient(top, #2a2a2a, #1b1b1b);
+    background-image: -o-linear-gradient(top, #2a2a2a, #1b1b1b);
+    background-image: linear-gradient(to bottom, #2a2a2a, #1b1b1b);
+  }
+  .darkGrey:hover {
+    background-color: #363636;
+    background-image: -webkit-linear-gradient(top, #404040, #2a2a2a);
+    background-image: -moz-linear-gradient(top, #404040, #2a2a2a);
+    background-image: -o-linear-gradient(top, #404040, #2a2a2a);
+    background-image: linear-gradient(to bottom, #404040, #2a2a2a);
+  }
+  
+  
+  
+  
+  /*<a class="button2">button2</a>
+  <br><br>
+  <a class="button2 rounded">button2</a>
+  <br><br>
+  <a class="button2 lightGrey">button2</a>
+  <br><br>
+  <a class="button2 lightGrey rounded">button2</a>
+  <br><br>
+  <a class="button2 darkGrey">button2</a>
+  <br><br>
+  <a class="button2 darkGrey rounded">button2</a> */
+  
+  .button3 {
+    margin: 0 12px;
+  }
+  
+  .button3 {
+    display: inline-block;
+    vertical-align: top;
+    height: 48px;
+    line-height: 46px;
+    padding: 0 25px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #bbb;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    background-color: #303030;
+    background-clip: padding-box;
+    border: 1px solid;
+    border-color: #202020 #1a1a1a #111;
+    border-radius: 25px;
+    background-image: -webkit-linear-gradient(top, #3d3d3d, #272727);
+    background-image: -moz-linear-gradient(top, #3d3d3d, #272727);
+    background-image: -o-linear-gradient(top, #3d3d3d, #272727);
+    background-image: linear-gradient(to bottom, #3d3d3d, #272727);
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.09), 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.09), 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  .button3:hover {
+    background-color: #363636;
+    background-image: -webkit-linear-gradient(top, #404040, #2a2a2a);
+    background-image: -moz-linear-gradient(top, #404040, #2a2a2a);
+    background-image: -o-linear-gradient(top, #404040, #2a2a2a);
+    background-image: linear-gradient(to bottom, #404040, #2a2a2a);
+  }
+  .button3:active, .button3.active {
+    line-height: 48px;
+    color: #ccc;
+    background-color: #b42f32;
+    border-color: #1c1c1c #202020 #222;
+    background-image: -webkit-linear-gradient(top, #a3161a, #b63335 60%, #bf4749);
+    background-image: -moz-linear-gradient(top, #a3161a, #b63335 60%, #bf4749);
+    background-image: -o-linear-gradient(top, #a3161a, #b63335 60%, #bf4749);
+    background-image: linear-gradient(to bottom, #a3161a, #b63335 60%, #bf4749);
+    -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+  }
+  
+  .button3-check {
+    position: relative;
+    width: 48px;
+    padding: 0;
+    font: 0/0 serif;
+    text-shadow: none;
+    color: transparent;
+  }
+  .button3-check:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -7px 0 0 -10px;
+    height: 5px;
+    width: 16px;
+    border: solid #bbb;
+    border-width: 0 0 5px 5px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
+  }
+  .button3-check:active:before, .button3-check.active:before {
+    margin-top: -6px;
+    border-color: #ccc;
+    -webkit-box-shadow: -1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: -1px 1px rgba(0, 0, 0, 0.3);
+  }
+  
+  .lt-ie9 .button3 {
+    line-height: 46px;
+  }
+  .lt-ie9 .button3-check:before {
+    content: none;
+  }
+  .lt-ie9 .button3-check:after {
+    /* a.k.a. the Unicode version */
+    content: '\2713';
+    font-size: 24px;
+    font-weight: bold;
+    color: #bbb;
+  }
+  
+   /* <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+    <div class="container">
+      <a href="#" class="button3">Button</a>
+      <a href="#" class="button3 active">Button</a>
+      <a href="#" class="button3 button3-check">OK</a>
+      <a href="#" class="button3 button3-check active">OK</a>
+    </div> */
+  
+  
+  
+  * {box-sizing: border-box;}
+  
+  .d1 {width: 210PX;float:left; margin-right:10px;}
+  .d1 input {
+    width: 220PX;
+    height: 42px;
+    padding-left:10px;
+    border: 2px solid #4c4d4f;
+    border-radius: 5px;
+    outline: none;
+    background: #f7f6f6;
+    color: #9E9C9C;
+  }
+  .d1 button {
+    position:right;	
+    margin-left:-10px;
+    top: 0;
+    right: 0px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #4c4d4f;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+  }
+  .d1 button:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #F9F0DA;
+  }
+  .d2 {background: #DABB52;}
+  .d2 input, .d2 button {
+    border: none;
+    outline: none;
+    border-radius: 3px;
+  }
+  .d2 input {
+    width: 100%;
+    height: 42px;
+    background: #F9F0DA;
+    padding-left: 15px;
+  }
+  .d2 button {
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #F15B42;
+    cursor: pointer;
+  }
+  .d2 button:before {
+    content: "\f105";
+    font-family: FontAwesome;
+    color: #F9F0DA;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .d3 {background: #F9F0DA;}
+  .d3 form {
+    background: #A3D0C3;
+  }
+  .d3 input, .d3 button {
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+  .d3 input {
+    width: 100%;
+    height: 42px;
+    padding-left: 15px;
+  }
+  .d3 button {
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .d3 button:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #F9F0DA;
+  }
+  .d4 {background: #F15B42;}
+  .d4 form {
+    background: #F9F0DA;
+    border-bottom: 4px solid #be290e;
+  }
+  .d4 input, .d4 button {
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+  .d4 input {
+    width: 100%;
+    height: 42px;
+    padding-left: 15px;
+  }
+  .d4 button {
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .d4 button:before {
+    content: "\f178";
+    font-family: FontAwesome;
+    font-size: 20px;
+    color: #be290e;
+  }
+  .d5 {background: #683B4D;}
+  .d5 input, .d5 button {
+    outline: none;
+    background: transparent;
+  }
+  .d5 input {
+    width: 100%;
+    height: 42px;
+    padding-left: 15px;
+    border: 3px solid #F9F0DA;
+  }
+  .d5 button {
+    border: none;
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .d5 button:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #F9F0DA;
+  }
+  .d5 input:focus {
+    border-color: #311c24
+  }
+  .d6 {background: #B46381;}
+  .d6 form {
+    height: 42px;
+  }
+  .d6 input {
+    height: 100%;
+    width: 0;
+    padding: 0 42px 0 15px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    outline: none;
+    background: transparent;
+    transition: .4s cubic-bezier(0, 0.8, 0, 1);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+  }
+  .d6 input:focus {
+    width: 300px;
+    z-index: 1;
+    border-bottom: 2px solid #F9F0DA;
+  }
+  .d6 button {
+    background: #683B4D;
+    border: none;
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .d6 button:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #F9F0DA;
+  }
+  .d7 {background: #7BA7AB;}
+  .d7:after {content:""; clear:both; display:table}
+  .d7 form {
+    width: auto;
+    float: right;
+    margin-right: 30px;
+  }
+  .d7 input {
+    width: 250px;
+    height: 42px;
+    padding-left: 15px;
+    border-radius: 42px;
+    border: 2px solid #324b4e;
+    background: #F9F0DA;
+    outline: none;
+    position: relative;
+    transition: .3s linear;
+  }
+  .d7 input:focus {
+    width: 300px;
+  }
+  .d7 button {
+    width: 42px;
+    height: 42px;
+    background: none;
+    border: none;
+    position: absolute;
+    top: -2px;
+    right: 0;
+  }
+  .d7 button:before{
+    content: "\f002";
+    font-family: FontAwesome;
+    color: #324b4e;
+  }
+  
+  
+  
+  @media screen and (max-width:1024px) {
+  .d1 {width: 180PX;float:right; }
+  .d1 input {
+    width: 170PX;
+    height: 42px;
+    padding-left:10px;
+  
+  }
+  }
+  
+  @media screen and (max-width:800px) {
+  .d1 {width: 250PX !important;}
+  .d1 input {
+    width:210PX !important;
+    height: 42px;
+    padding-left:10px; }
+  }
+  @media screen and (max-width:640px) {
+  .d1 {width: 200PX;float:left; margin-right:10px;}
+  .d1 input {
+    width: 150PX;
+    height: 42px;
+    padding-left:10px;
+  
+  }
+   
+  }
+  @media screen and (max-width:480px) {
+  .d1 {width: 220PX;float:left; margin-right:10px;}
+  .d1 input {
+    width: 130PX;
+    height: 42px;
+    padding-left:10px;
+    
+  }
+  }

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@latest"></script>
+    <style>
+        .table-container {
+            overflow-y: auto;
+            display: block;
+        }
+
+        .table-container table {
+            width: 100%;
+            table-layout: auto;
+        }
+
+        .chart-container {
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        canvas {
+            background-color: #343a40;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+
+<body class="bg-dark">
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand bg-light" href="/">
+                <img src="{% static 'images/logo.png' %}" height="30px" alt="Logo">
+            </a>
+            <a href="/picam" class="btn btn-warning">PiCAM</a>
+            <a href="/webcam" class="btn btn-success">AI WebCAM</a>
+        </div>
+    </nav>
+
+    <div class="vh-100 container mt-3">
+        <div class="row">
+            <!-- device selection -->
+            <div class="container">
+                <button class="btn btn-primary loc-btn" data-loc="pi">pi</button>
+                <button class="btn btn-success loc-btn" data-loc="rpi1">rpi1</button>
+                <button class="btn btn-danger loc-btn" data-loc="ubt">ubt</button>
+                <button class="btn btn-warning loc-btn" data-loc="piz1">piz1</button>
+                <button class="btn btn-warning loc-btn" data-loc="piz2">piz2</button>
+                <button class="btn btn-warning loc-btn" data-loc="piz3">piz3</button>
+            </div>
+            <!-- 테이블 섹션 -->
+            <div>
+                <div class="table-container table-responsive border rounded shadow-sm bg-dark p-1"  style="height: 50vh;">
+                    <table id="sensorTable" class="table table-dark table-striped table-hover text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Type</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Temp Left</th>
+                                <th>Temp Right</th>
+                                <th>Load Left</th>
+                                <th>Load Right</th>
+                                <th>VOCs</th>
+                                <th>VOCs Temp</th>
+                                <th>VOCs Hum</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 차트 섹션 -->
+            <div class="mt-3">
+                <div class="chart-container border rounded shadow-sm p-1"  style="height: 350px">
+                    <canvas id="sensorChart"></canvas>
+                </div>
+                <button id="resetZoomBtn" class="btn btn-primary mt-2">Reset Zoom</button>                
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedLoc = 'piz1';
+
+        async function fetchSensorData() {
+            const response = await fetch(`/sensor/?loc=${selectedLoc}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            const result = await response.json();
+            return result.data;
+        }
+
+        function formatTime(time) {
+            const date = new Date(time);
+            return date.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+        }
+
+        function updateTable(data) {
+            const tbody = document.querySelector('#sensorTable tbody');
+            tbody.innerHTML = '';
+
+            data.forEach(row => {
+                const { id, ...rowWithoutId } = row;
+                const tr = document.createElement('tr');
+
+                Object.keys(rowWithoutId).forEach(key => {
+                    const td = document.createElement('td');
+                    if (key === 'time') {
+                        td.textContent = formatTime(row[key]);
+                    } else {
+                        td.textContent = row[key];
+                    }
+                    tr.appendChild(td);
+                });
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        const legendVisibility = {
+            'Temp Left': true,
+            'Temp Right': true,
+            'Load Left': true,
+            'Load Right': true,
+            'VOCs': true,
+            'VOCs Temp': true,
+            'VOCs Hum': true,
+        };
+
+        const ctx = document.getElementById('sensorChart').getContext('2d');
+        let chart;
+        let dragStart = null;
+
+        function initializeChart() {
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 0
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time',
+                                color: '#ffffff'  // ✅ 문법 오류 수정
+                            },
+                            reverse: true,
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.2)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Values',
+                                color: '#ffffff'  // ✅ 문법 오류 수정
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            ticks: {
+                                beginAtZero: true,
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.2)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'y',
+                                modifierKey: 'mousedown'
+                            },
+                            zoom: {
+                                wheel: {
+                                    enabled: true,
+                                },
+                                pinch: {
+                                    enabled: true,
+                                },
+                                drag: {
+                                    enabled: true,
+                                    borderColor: 'rgba(255,255,255,0.3)',
+                                    backgroundColor: 'rgba(255,255,255,0.1)',
+                                    onDragStart: ({ chart, event }) => {
+                                        console.log("onDragStart 이벤트 감지됨!");
+                                        if (!event) return;
+                                        const { left, top } = chart.canvas.getBoundingClientRect();
+                                        dragStart = { x: event.x - left, y: event.y - top };
+                                        console.log("Drag 시작 위치:", dragStart);
+                                    },
+                                    onDragEnd: ({ chart, event }) => {
+                                        console.log("onDragEnd 이벤트 감지됨!");
+                                        if (!event || !dragStart) return;
+
+                                        const dragEnd = { x: event.x, y: event.y };
+                                        console.log("Drag 종료 위치:", dragEnd);
+                                        if (dragEnd.x < dragStart.x && dragEnd.y < dragStart.y) {
+                                            chart.resetZoom();
+                                        }
+
+                                        dragStart = null;
+                                    }
+                                }
+                            }
+                         },
+                         legend: {
+                            labels: {
+                                font: {
+                                    size: 10
+                                },
+                                boxWidth: 10,
+                                boxHeight: 10,
+                                padding: 5
+                            },
+                            onClick: function (e, legendItem) {
+                                const index = legendItem.datasetIndex;
+                                const datasetLabel = chart.data.datasets[index].label;
+
+                                legendVisibility[datasetLabel] = !legendVisibility[datasetLabel];
+                                chart.data.datasets[index].hidden = !legendVisibility[datasetLabel];
+                                chart.update();
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: 10
+                    },
+                    elements: {
+                        line: {
+                            tension: 0.4
+                        },
+                        point: {
+                            radius: 2
+                        }
+                    },
+                }
+             });
+         }
+
+        function updateChart(data) {
+             if (!chart) {
+                return;
+             }
+            const labels = data.map(row => formatTime(row.time));
+            const tempLeft = data.map(row => row.temp_left);
+            const tempRight = data.map(row => row.temp_right);
+            const loadLeft = data.map(row => row.load_left);
+            const loadRight = data.map(row => row.load_right);
+            const vocs = data.map(row => row.vocs);
+            const vocsTemp = data.map(row => row.vocs_temp);
+            const vocsHum = data.map(row => row.vocs_hum);
+
+            chart.data.labels = labels;
+            chart.data.datasets = [
+                {
+                    label: 'Temp Left',
+                    data: tempLeft,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Temp Left']
+                },
+                {
+                    label: 'Temp Right',
+                    data: tempRight,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Temp Right']
+                },
+                {
+                    label: 'Load Left',
+                    data: loadLeft,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Load Left']
+                },
+                {
+                    label: 'Load Right',
+                    data: loadRight,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['Load Right']
+                },
+                {
+                    label: 'VOCs',
+                    data: vocs,
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['VOCs']
+                },
+                {
+                    label: 'VOCs Temp',
+                    data: vocsTemp,
+                    borderColor: 'rgba(255, 205, 86, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['VOCs Temp']
+                },
+                {
+                    label: 'VOCs Hum',
+                    data: vocsHum,
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1,
+                    hidden: !legendVisibility['VOCs Hum']
+                }
+            ];
+            chart.update();
+        }
+
+        async function refreshData() {
+            const data = await fetchSensorData(selectedLoc);
+            updateTable(data);
+            updateChart(data);
+        }
+
+        document.querySelectorAll('.loc-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const targetButton = event.target.closest('.loc-btn');  // 클릭된 버튼 찾기
+                if (targetButton) {
+                    selectedLoc = targetButton.getAttribute('data-loc');
+                    // refreshData();
+                }
+            });
+        });
+
+        document.getElementById('resetZoomBtn').addEventListener('click', () => {
+            chart.resetZoom();
+        });
+        
+        initializeChart();
+        setInterval(refreshData, 1000);
+        refreshData();
+    </script>
+</body>
+</html>

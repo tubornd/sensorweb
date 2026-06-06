@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compativle" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1><여기 전체 프로젝트 목록 나오게 할게요.></h1>
+        <p>현재시간: {{now_time}}<br>
+        {{num_list}}<br>
+        {{num_list.0}}<br>
+        {{num_dict}}<br>
+        {{num_dict.1}}<br>
+        {{person_obj}}<br>
+        {{person_obj.say_hello}}<br>
+        </p>
+        <h3> {{ stat_value }}:
+            {% if stat_value == 400 %}
+            잘못된 요청
+            {% elif stat_value == 403 %}
+            권한 없음
+            {% elif stat_value == 404 %}
+            찾을 수 없는 데이터
+            {% else %}
+            기타 클라이언트 오류
+            {% endif %}
+
+            {% for item in user_name %}
+            <p>순서: {{forloop.counter }}</p>
+            <p>{{ item }}</p>
+            {% endfor %}
+        </h3>>
+        <!-- <h3>
+            {% if question_data %}
+            <ul>
+                {% for question in question_data %}
+                <li><a href='/board/{{question.id}}/'>({{ question.user_name }}) {{ question.subject}}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>질문이 없습니다.</p>
+            {% endif %} -->
+
+        </h3>
+        <h3>
+            {% if user.is_authenticated %}
+            로그인하고 있는 경우에 표시되는 내용을 기재
+            {% endif %}
+        </h3>
+
+
+    </body>
+</html>
+
+

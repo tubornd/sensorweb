@@ -1,0 +1,118 @@
+<!doctype html>
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebCam 실시간 사물 인식</title>
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    canvas {
+      position: absolute;
+    }
+
+
+    video {
+      position: absolute;
+
+    }
+  </style>
+
+
+</head>
+
+<body class="bg-dark">
+  <!-- 네비게이션 바 -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand bg-light" href="/">
+          <img src="{% static 'images/logo.png' %}" height="40px" alt="Logo">
+      </a>
+      <a href="/picam" class="btn btn-warning">PiCam</a>
+      <a href="/sensor" class="btn btn-primary">Sensor Data</a>
+    </div>
+  </nav>
+  <section>
+    <div class="container">
+      <div class="text-center text-white">
+        <h1>WebCam 실시간 사물인식</h1>
+        <p id="status">AI 모델 로딩중...</p>
+        <div class="spinner-border text-primary" id="loader"></div>
+      </div>
+      <div class="vid-pos d-flex justify-content-center">
+        <video id="video" width="640" height="480" autoplay muted playsinline></video>
+        <canvas id="canvas"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Load tensorflow & the coco-ssd model. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@1.1.0"></script>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(function (stream) {
+        video.srcObject = stream;
+      });
+
+    cocoSsd.load().then(model => {
+      document.getElementById('loader').style.display = "none";
+      document.getElementById('status').innerHTML = '데이터 로딩이 완료되었습니다';
+      //document.getElementById('status').style.display = "none";
+      video.onloadeddata = (event) => {
+        predict();
+      };
+      function predict() {
+
+        console.log(video.width, video.height);
+        canvas.width = video.width;
+        canvas.height = video.height;
+        //     context.drawImage(video, 0, 0);
+        model.detect(video).then(predictions => {
+          console.log('Predictions: ', predictions);
+
+
+          for (let i = 0; i < predictions.length; i++) {
+            context.beginPath();
+            context.lineWidth = 1;
+            //party mode
+            const color = Math.floor(Math.random() * 16777215).toString(16);
+            context.strokeStyle = '#' + color
+            //            context.strokeStyle = "#2fff00"
+            context.rect(...predictions[i].bbox);
+            context.stroke();
+            context.font = '24px Arial';
+            context.fillStyle = '#' + color;
+            context.fillText(predictions[i].class + ' ' + parseInt(predictions[i].score * 100) + '%', predictions[i].bbox[0], predictions[i].bbox[1]);
+
+          }
+        });
+        requestAnimationFrame(predict);
+      }
+    });
+  </script>
+</body>
+
+</html>

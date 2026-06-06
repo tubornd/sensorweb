@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TensorFlow.js Tutorial - boston housing </title>
+
+    <!-- Import TensorFlow.js -->
+    <!-- Load TensorFlow.js. This is required to use coco-ssd model. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+    <!-- Load the coco-ssd model. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+
+    <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+
+    <!-- Place your code in the script tag below. You can also use an external .js file -->
+
+</head>
+    <style>
+        canvas {
+            position: absolute;
+        }
+
+        img {
+            position: absolute;
+        }
+    </style>
+<body>
+    <img id="img" src="/static/img_test/R.jfif"/>
+    <canvas id="canvas"></canvas>
+
+    <script>
+    // Notice there is no 'import' statement. 'cocoSsd' and 'tf' is
+    // available on the index-page because of the script tag above.
+    const img = document.getElementById('img');
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+
+    // Load the model.
+    cocoSsd.load().then(model => {
+        // detect objects in the image.
+        model.detect(img).then(predictions => {
+            console.log('Predictions: ', predictions);
+            console.log(img.width, img.height);
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            context.drawImage(img, 0, 0);
+            for (let i = 0; i < predictions.length; i++) {
+                context.beginPath();
+                context.lineWidth = 1;
+                context.strokeStyle = "#2fff00";
+                context.rect(...predictions[i].bbox);
+                context.stroke();
+                context.font = "20px Arial";
+                context.fillStyle = "green";
+                context.fillText(predictions[i].class + ' ' + parseInt(predictions[i].score * 100) + '%', predictions[i].bbox[0], predictions[i].bbox[1]);
+            }
+
+
+        });
+    });
+    </script>
+
+</body>
+
+</html>

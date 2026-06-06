@@ -1,0 +1,17 @@
+<!-- fileupload/templates/fileupload.html -->
+ {% extends 'base.html' %}
+ {% load static %}
+ {% load django_bootstrap5 %}
+ {% block content %}
+ <div class="container col-lg-6">
+    <form action="{% url 'fileupload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form fileuploadForm %}
+        <input type="submit" class="btn btn-primary" value="제출">
+    </form>
+ </div>
+ <div class="m-5 text-center">
+    <a href="/" class="logo"><img src="/static/images/logo.png" alt="" /></a>
+  </div>
+
+ {% endblock %}

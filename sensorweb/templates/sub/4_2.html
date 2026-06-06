@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta name="format-detection" content="telephone=041-732-2416" />
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="shortcut icon" href="/static/images/tbe.ico" type="image/x-icon">
+	<meta http-equiv="keywords" content="(주)터보이엔지">
+	<meta name="description" content="무대기계장치 , 무대막, 커튼, 기계설비공사 전문기업">
+	<meta  property="og:type" content="website">
+	<meta property="og:title" content="(주)터보이엔지">
+	<meta property="og:url" content="무대기계장치 , 무대막, 커튼, 기계설비공사 전문기업">
+	<meta property="og:image" content="/images/logo.png">
+	<meta property="og:url" content="http://tuboeng.co.kr/">
+	<link rel="stylesheet" type="text/css" href="/static/css/style2.css" />
+	<link rel="stylesheet" href="/static/css/swiper.min.css">
+	<script src="/js/jquery-1.10.2.min.js" charset="euc-kr"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script src="/js/swiper.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+	<link href="/static/css/btn.css" type="text/css" rel="stylesheet">
+
+<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+</head> 
+
+<body>
+<div class="wrap">
+	<div class="top_area">
+		<div class="top_menu">
+			<a href="/" class="logo"><img src="/static/images/logo.png" alt="" /></a>
+			<div class="m">
+			<a href="{% url 'sub_view' 1 1 %}" class="d">회사소개</a><a href="{% url 'sub_view' 2 1 %}" class="d">기술소개</a><a href="{% url 'sub_view' 3 1 %}" class="d">공사실적</a>
+			<a href="{% url 'sub_view' 4 2 %}" class="d">설치현황</a><a href="{% url 'sub_view' 5 1 %}" class="d">제품소개</a><a href="{% url 'sub_view' 6 1 %}" class="d">고객지원</a>
+			</div>
+			<div class="menu_bar">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<ul class="sub_menu_p">
+			 <li class="sub1">
+	                <a href="{% url 'sub_view' 1 1 %}">인사말</a>
+					<a href="{% url 'sub_view' 1 2 %}">회사개요</a>
+					<a href="{% url 'sub_view' 1 3 %}">비젼</a>
+					<a href="{% url 'sub_view' 1 4 %}">조직도</a>
+					<a href="{% url 'sub_view' 1 5 %}">연혁</a>
+					<a href="{% url 'sub_view' 1 6 %}">Contact us</a>
+				</li>
+				<li class="sub2">
+					<a href="{% url 'sub_view' 2 1 %}">등록증</a>
+				    <!-- <a href="/sub02/02.asp?gu=a">특허증</a>
+					<a href="/sub02/03.asp?gu=c">기타</a> -->
+				</li>
+				<li class="sub3">
+					<a href="{% url 'sub_view' 3 1 %}">무대장치실적</a>
+					<!-- <a href="/sub03/02.asp?gu=b">용역실적</a>
+					<a href="/sub03/03.asp?gu=c">기타공사실적</a> -->
+					
+				</li>
+				<li class="sub4">
+   
+					  <a href="{% url 'sub_view' 4 2 %}">설치현황</a>
+				</li>
+				
+				<li class="sub5">
+					<a href="{% url 'sub_view' 5 1 %}">무대장치</a>
+					<a href="{% url 'sub_view' 5 2 %}">무대조명</a>
+					<a href="{% url 'sub_view' 5 3 %}">실내건축</a>
+					
+				</li>
+				<li class="sub6">
+                    <a href="{% url 'sub_view' 6 1 %}">공지 및 뉴스</a>
+                    <a href="{% url 'sub_view' 6 2 %}">상담문의</a>
+                    <a href="{% url 'sub_view' 6 3 %}">자료실</a>
+        
+					
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	
+
+    <script language="javascript">
+    <!--
+        function download(d_name,f_name){
+            // location.href="/include/download.asp?d_name="+d_name+"&f_name="+f_name;
+        }
+    -->
+    </script>
+
+
+
+    <meta property="og:description" content="설치현황">
+    <title>(주)터보이엔지 설치현황</title>
+        <div class="sub_visual sub3">
+            <span class="blc">설치현황</span>
+        </div>
+
+        <div class="sub_con_menu sub_con_menu2">
+            <!-- <a href="01.asp?gu=a">제품소개</a> -->
+            <a href="{% url 'sub_view' 4 2 %}"  class="on" >설치현황</a>
+        </div>
+
+        <div class="sub_contents">
+            <div class="content_area">
+				<div class="sub_height">
+
+                    <!-- 내용시작 -->
+                    <section id="image_ani"> 
+                        <div class="schfrm"  >
+                            <form action="{% url 'sub_view' 4 2 %}"  method="post" name="category_search"  onsubmit="return checkform_insert(this)"> 
+                        
+                                <input type="hidden" name="lang" value=""> 
+                                <input type="hidden" name="pname" value=""> 
+                                
+                                <div class="sch2"  >
+                                    <!-- <select  class="schselect " name="fildnm">
+                                    <option value="subject" >수행실적명</option>
+                                    </select> --> 
+                                    <div class="d1">
+                                        <input type="text" placeholder="설치명입력"  name="search_value"><button type="submit"  ></button>  
+                                    </div>
+                                </div>
+                            </form>  
+                        </div>
+                        <script language="JavaScript">
+                            function checkform_insert(theForm)
+                            {
+                            if (!(theForm.search_value.value))
+                            {
+                                alert("검색어할 단어를 입력해주세요!");
+                                theForm.search_value.focus();
+                                return (false);
+                            }
+                            return (true);
+                            }
+
+                            //-->	
+                        </script>
+
+                        <!-- 구분시작 -->
+                    
+                        <div   class="sub0302btn">
+                            <a href="{% url 'sub_view' 4 2 %}"> <div   class="btn  imgbig" >무대장치</div></a> 
+                            <a href="{% url 'sub_view' 4 2 %}"><div class="btn2  imgbig"  style="margin-left:6px;">무대조명</div></a>
+                            <a href="{% url 'sub_view' 4 2 %}"><div class="btn2  imgbig"  style="margin-left:6px;">실내건축</div></a>
+                        </div>	
+                        <!-- 구분끝 -->
+
+
+                        <!-- 시작 -->
+                        <ul class="productset">
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=8&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/대공연장천정음향반사판구동부외설치.jpg" onfocus="blur" border=0  alt="대공연장 천정 음향반사판 구동부외 설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">
+                                    <p>대공연장 천정 음향반사판 구동부외 설치	대공연장 천정 음향반사판 구동부외 설치..</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=8&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                            <li>      
+                                <div class="img">
+                                    <!-- <!-- <A HREF="02_view.asp?no=7&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>  -->
+                                        <img src="/static/images/대공연장광케이블 설치(무대).jpg" border=0    alt="대공연장광케이블 설치(무대)" />
+                                    <!-- </a> --> -->
+                                </div>
+                                <div class="txt">
+                                    <p><!-- 대공연장광케이블 설치(무대) -->	대공연장광케이블 설치(무대)</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=7&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=16&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/롤스크린설치.jpg" border=0    alt="롤스크린설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">
+                                    <p><!-- 롤스크린설치 -->	롤스크린설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=16&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=17&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/롤플래그설치.jpg" border=0    alt="롤플래그설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 롤플래그설치 -->	롤플래그설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=17&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=1&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치구동부 설치.jpg" border=0    alt="무대기계장치구동부 설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">
+                                    <p><!-- 무대기계장치구동부 설치 -->	무대기계장치구동부 설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=1&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=2&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치바튼 설치.jpg" border=0    alt="무대기계장치바튼 설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 무대기계장치바튼 설치 -->	무대기계장치바튼 설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=2&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=21&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치상부구동부설치.jpg" border=0    alt="무대기계장치상부구동부설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 무대기계장치상부구동부설치 -->	무대기계장치상부구동부설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=21&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=22&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치상부바튼설치.jpg" border=0    alt="무대기계장치상부바튼설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 무대기계장치상부바튼설치 -->	무대기계장치상부바튼설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=22&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=23&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치상부설치.jpg" border=0    alt="무대기계장치상부설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 무대기계장치상부설치 -->	무대기계장치상부설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=23&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=3&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치와이어로프설치.jpg" border=0    alt="무대기계장치와이어로프설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 무대기계장치와이어로프설치 -->	무대기계장치와이어로프설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=3&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=4&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치조물설치10.jpg" border=0    alt="무대기계장치조물 설치" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 무대기계장치조물 설치 -->	무대기계장치조물 설치</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=4&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                    
+                    
+
+                            <li>      
+                                <div class="img">
+                                    <!-- <A HREF="02_view.asp?no=5&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()> -->
+                                        <img src="/static/images/무대기계장치최종시연3.jpg" border=0    alt="무대기계장치최종시연" />
+                                    <!-- </a> -->
+                                </div>
+                                <div class="txt">			
+                                    <p><!-- 무대기계장치최종시연 -->	무대기계장치최종시연</p>
+                                    <button onfocus="blur">READ MORE</button>
+                                    <!-- <A HREF="02_view.asp?no=5&gu=s&subject=&pname=02&lang=k&page=1" onfocus=blur()>READ MORE</a> -->
+                                </div>
+                            </li><!-- ./ -->
+                
+                        </ul>
+                        
+                        <div >
+                            
+                            <!--페이징 시작 -->
+                            <div class="paging" style="margin-right: auto; margin-left: auto; width:auto;">&nbsp; 
+                                <a href='#'><div  style='color:#008bcc;width:33px; border-bottom:3px solid #008bcc; float:left;font-weight:bold;'>1</div></a>&nbsp; 
+                                <a href='./02.asp?field=&searchkey=&lang=k&table_n=mdata&pname=02&gu=s&no=&subject=&page=2'&title='2 페이지'><div >2</div></a>&nbsp;
+                                <a href='./02.asp?field=&searchkey=&lang=k&table_n=mdata&pname=02&gu=s&no=&subject=&page=3'&title='3 페이지'><div >3</div></a>&nbsp;&nbsp;
+                            </div><!--페이징 끝 -->
+                    
+                            <script language="Javascript">
+                                var flag = false;
+
+                                function Regist()	//확인 아이콘을 누르면 Submit한다.
+                                {
+                                    var form = document.wir;
+                                    
+                                    if (Check(form.searchkey.value) < 1 )
+                                    {
+                                        form.searchkey.focus();
+                                        alert("검색어를 입력하세요.");			
+                                    }
+                                    else
+                                    {
+                                        form.submit();			
+                                    }
+                                    
+
+                                }
+
+
+                                function Check(keyword) 
+                                {
+                                    var st_num, key_len;
+                                    st_num = keyword.indexOf(" ");	
+                                    while (st_num != -1)
+                                    {
+                                        keyword = keyword.replace(" ", "");
+                                        st_num  = keyword.indexOf(" ");
+                                    }
+                                    key_len=keyword.length;
+                                    return key_len;
+                                }
+
+                            </script>	
+                            <!-- 끝 -->
+                        </div>
+                    </section>
+                        <!-- 내용끝 -->
+
+                </div>
+
+            </div>
+        </div>
+        <div id="" class="priv" ><a href="/sub06/05.asp">개인정보처리방침</a></div>
+
+
+        <footer>
+            <div>
+                <!-- <a href="/sub06/01.asp">
+                    <div  class="sz"  >
+                        <div id="" class="communi">
+                            <div  class="fs26px w300h30 pdlt20">SUPPORT</div>
+                            <div  class="fs40px w300h50 txtalignc">055.292.5925</div>
+                            <div  class="fs21px txtalignc">E-mail :  tuboeng@naver.com </div>
+                            <div  class="comworks">
+                                <ul>
+                                    <li>소액수의 계약추천</li>
+                                    <li>직접생산확인</li>
+                                    <li>원자재 공동구매</li>
+                                    <li>보증·손해공제</li>
+                                </ul>
+                            </div>
+                        </div>      
+                    </div>
+                </a> -->
+
+                <div class="ftrt">
+                
+                    <div  class="ftlogo"  >
+                        <img src="/static/images/logo3.png">
+                    </div>
+                    <div class="mo_ver ftlogo2"   >
+                        <p>본사 : 충남 논산시 연산면 계백송정 1길 7-21  <span></span> mail. tuboeng@naver.com <br> Tel. 041-732-2416<span></span>Fax. 041-732-2417 <br>     
+                                대전 : 대전시 유성구 관평동 1300번지  <span></span> T. 042-934-0070<span></span>F. 042-934-0057<br>
+                        </p>
+                    </div>
+
+                    <div class="pc_ver ftlogo2"  >
+                        <p>본사 : 충남 논산시 연산면 계백송정 1길 7-21 <span></span> E.tuboeng@naver.com  <br> T.041)732-2416<span></span>F.041)732-2417<br>
+                            대전 : 대전시 유성구 관평동 1300<span></span> T.042-934-0070<span></span>F.042-934-0057<br>
+                        </p>
+                    </div>
+                    <div class="ftlogo3"  >
+                        <p>Copyright ⓒ (주)터보이엔지. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+</body>
+</html><a href="#TopAnchor" class="go-top">▲</a>
+
+<style>
+
+.go-top{
+	display:block;
+	width:40px;
+	height:40px;
+	line-height:35px;
+	text-align:center;
+	font-size:30px;
+	position:fixed;
+	bottom:-40px;
+	right:20px;
+	-webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+	background-color:#404040;
+	color:#FFFFFF;
+	text-decoration:none;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.go-top.show{
+	bottom:20px;
+}
+
+.go-top:hover{
+	background-color:#5DBA9D;
+	color:#FFFFFF;
+}
+
+.wrapper{
+	margin:auto;
+	width:100%;
+	text-align:left;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+<script>
+/*Add class when scroll down*/
+$(window).scroll(function(event){
+  	var scroll = $(window).scrollTop();
+    if (scroll >= 50) {
+        $(".go-top").addClass("show");
+    } else {
+        $(".go-top").removeClass("show");
+    }
+});
+/*Animation anchor*/
+$('a').click(function(){
+    $('html, body').animate({
+        scrollTop: $( $(this).attr('href') ).offset().top
+    }, 1000);
+});
+</script>

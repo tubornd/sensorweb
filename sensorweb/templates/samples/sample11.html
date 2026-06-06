@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="bg-dark bg-opacity-60">
+
+    <section class="container text-center overflow-hidden">
+        <div class="mt-5 py-5">
+            <h1 class="fw-bold text-primary">문의하기</h1>
+            <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid, aliquam?</p>
+        </div>
+        <form action="" class="row g-4 w-75 m-auto justify-content-center">
+            <!-- 이름 -->
+             <div class="col-md-6 col-xl-5">
+                <div class="form-floating">
+                    <input type="text" class="bg-secondary form-control rounded-4" id="nameInput" placeholder="이름">
+                    <label for="nameInput">이름</label>
+                  </div>
+
+             </div>
+            <!-- 이메일 -->
+             <div class="col-md-6 col-xl-5">
+                <div class="form-floating">
+                    <input type="email" class="bg-secondary form-control rounded-4" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">이메일</label>
+                  </div>
+
+             </div>
+            <!-- 메시지 -->
+             <div class="col-12 col-xl-10">
+                <div class="form-floating">
+                    <textarea class="bg-secondary form-control rounded-4" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
+                    <label for="floatingTextarea2">메시지</label>
+                  </div>
+
+             </div>
+            <!-- 버튼 -->
+             <div class="col-12 col-xl-10">
+                <button class="btn btn-danger rounded-4">전송하기</button>
+
+             </div>
+
+        </form>
+        <div class="m-5 text-center">
+          <a href="/" class="logo"><img src="/static/images/logo.png" alt="" /></a>
+        </div>
+
+  </section>
+
+  </body>
+</html>
